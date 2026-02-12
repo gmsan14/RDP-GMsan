@@ -36,18 +36,18 @@ jobs:
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
 
           # Create user (skip if already exists)
-          if (-not (Get-LocalUser -Name "GMsan" -ErrorAction SilentlyContinue)) {
-              New-LocalUser -Name "GMsan" -Password $securePass -AccountNeverExpires
-              Add-LocalGroupMember -Group "Administrators" -Member "GMsan"
-              Add-LocalGroupMember -Group "Remote Desktop Users" -Member "GMsan"
-          }
+         if (-not (Get-LocalUser -Name "GMsan" -ErrorAction SilentlyContinue)) {
+           New-LocalUser -Name "GMsan" -Password $securePass -AccountNeverExpires
+           Add-LocalGroupMember -Group "Administrators" -Member "GMsan"
+           Add-LocalGroupMember -Group "Remote Desktop Users" -Member "GMsan"
+         }
 
           echo "RDP_CREDS=User: GMsan | Password: $password" >> $env:GITHUB_ENV
 
-          if (-not (Get-LocalUser -Name "GMsan")) {
-              Write-Error "User creation failed"
-              exit 1
-          }
+         if (-not (Get-LocalUser -Name "GMsan")) {
+           Write-Error "User creation failed"
+           exit 1
+         }
 
       - name: Install Tailscale
         run: |
