@@ -42,7 +42,7 @@ jobs:
            Add-LocalGroupMember -Group "Remote Desktop Users" -Member "GMsan"
          }
 
-          echo "RDP_CREDS=User: GMsan | Password: $password" >> $env:GITHUB_ENV
+         echo "RDP_CREDS=User: GMsan | Password: $password" >> $env:GITHUB_ENV
 
          if (-not (Get-LocalUser -Name "GMsan")) {
            Write-Error "User creation failed"
